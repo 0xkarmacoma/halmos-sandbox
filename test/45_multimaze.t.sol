@@ -40,12 +40,16 @@ abstract contract Maze {
     //////////////////////////////////////////////////////////////*/
 
     function updateState() internal returns (Result) {
-        require(state[y][x] != "#", "Blocked position");
+        bytes memory row = state[y];
+        bytes1 current = row[x];
+        require(current != "#", "Blocked position");
 
-        if (state[y][x] == "E") {
+        if (current == "E") {
             return Result.END;
         } else {
-            state[y][x] = ".";
+            // avoid polluting the state
+            // state[y][x] = ".";
+
             return Result.VALID;
         }
     }
@@ -230,10 +234,15 @@ contract SuperEasyMazeFoundryTest is Test {
 
     function setUp() public {
         maze = new SuperEasyMaze();
+        assertEq(maze.state(maze.y())[maze.x()], "S");
+
+        // maze.down();
+        console.log("row", string(maze.state(maze.y())));
     }
 
     function invariant_SuperEasyMaze_endReached() public view {
-        assert(!maze.endReached());
+        // assert(!maze.endReached());
+        assertNotEq(maze.state(maze.y())[maze.x()], "E");
     }
 }
 
@@ -257,6 +266,18 @@ contract MediumMazeFoundryTest is Test {
     }
 
     function invariant_MediumMaze_endReached() public view {
+        assert(!maze.endReached());
+    }
+}
+
+contract HardMazeFoundryTest is Test {
+    Maze maze;
+
+    function setUp() public {
+        maze = new HardMaze();
+    }
+
+    function invariant_HardMaze_endReached() public view {
         assert(!maze.endReached());
     }
 }

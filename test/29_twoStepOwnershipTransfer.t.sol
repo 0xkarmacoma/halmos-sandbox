@@ -61,14 +61,17 @@ contract TwoStepOwnershipTestFoundry is Test {
 
         vm.prank(owner);
         owned = new Owned();
+        assertEq(owned.owner(), owner);
 
-        handler = new Handler(owned);
-        targetContract(address(handler));
+        // the handler is no longer needed, foundry can break the invariant directly
 
-        bytes4[] memory selectors = new bytes4[](2);
-        selectors[0] = Handler.transferOwnership.selector;
-        selectors[1] = Handler.acceptOwnership.selector;
-        targetSelector(FuzzSelector(address(handler), selectors));
+        // handler = new Handler(owned);
+        // targetContract(address(handler));
+
+        // bytes4[] memory selectors = new bytes4[](2);
+        // selectors[0] = Handler.transferOwnership.selector;
+        // selectors[1] = Handler.acceptOwnership.selector;
+        // targetSelector(FuzzSelector(address(handler), selectors));
     }
 
     function test_successful_transfer(address newOwner) public {
@@ -78,8 +81,7 @@ contract TwoStepOwnershipTestFoundry is Test {
         assertEq(owned.owner(), newOwner);
     }
 
-    function invariant_owner_never_changes_this_is_bad_lol() public returns (bool cond) {
-        cond = (owned.owner() == owner);
+    function invariant_owner_never_changes_this_is_bad_lol() public view {
         assertEq(owned.owner(), owner);
     }
 }
@@ -93,8 +95,7 @@ contract TwoStepOwnershipTestHalmos is Test, SymTest {
         owned = new Owned();
     }
 
-    function invariant_owner_never_changes_this_is_bad_lol() public returns (bool cond) {
-        cond = (owned.owner() == owner);
+    function invariant_owner_never_changes_this_is_bad_lol() public view {
         assertEq(owned.owner(), owner);
     }
 

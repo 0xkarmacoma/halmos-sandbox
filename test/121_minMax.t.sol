@@ -16,6 +16,7 @@ contract Game {
 
 contract Test121 is Test, SymTest {
     Game game;
+    uint256 x;
 
     function setUp() public {
         game = new Game();
@@ -26,12 +27,12 @@ contract Test121 is Test, SymTest {
         assertLe(score, 42);
     }
 
-    function test_minMax_verify() external view {
+    function test_minMax_verify() external {
         // score = 128
         // uint256 x = 0x81dce8a00000000000000000000000000000000000000000000000000000000;
 
         // score = 8448, which is the theoretical maximum (97 * 88)
-        uint256 x = 0x991badb6420e88c2dd40b0f4feaa5627b0006d5eb5f6cb80037ea97d03679e15;
+        x = 0x991badb6420e88c2dd40b0f4feaa5627b0006d5eb5f6cb80037ea97d03679e15;
         console2.log("x", x);
         console2.log("score", game.submit(x));
     }

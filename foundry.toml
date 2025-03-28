@@ -1,6 +1,6 @@
 [profile.default]
 solc-version = "0.8.28"
-optimizer = false # faster compilation
+optimizer = true # faster compilation
 optimizer-runs = 10_000_000
 extra_output = ["storageLayout", "metadata"]
 evm-version = "cancun"
