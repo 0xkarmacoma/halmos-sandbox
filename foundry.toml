@@ -19,3 +19,5 @@ targets = [
 [profile.smt.model_checker.contracts]
 "~/projects/halmos-sandbox/test/21_monotonic.t.sol" = [ 'Monotonic' ]
 
+[profile.solx]
+solc_version = "/usr/local/bin/solx"
