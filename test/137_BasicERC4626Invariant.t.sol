@@ -40,16 +40,15 @@ contract Test137 is Test, SymTest {
         asset = new ERC20Like();
         vault = new Basic4626Deposit(address(asset), "Basic4626Deposit", "BASIC", 18);
 
-        bytes4[] memory selectors = new bytes4[](1);
-        selectors[0] = this.handler_deposit.selector;
-        targetSelector(FuzzSelector({
-            addr: address(this),
-            selectors: selectors
-        }));
+        // bytes4[] memory selectors = new bytes4[](1);
+        // selectors[0] = this.handler_deposit.selector;
+        // targetSelector(FuzzSelector({
+        //     addr: address(this),
+        //     selectors: selectors
+        // }));
 
-        targetContract(address(this));
+        // targetContract(address(this));
     }
-
 
     function handler_deposit(uint256 assets) public {
         asset.mint(address(this), assets);
@@ -78,6 +77,11 @@ contract Test137 is Test, SymTest {
     // }
 
     function invariant_happy() public view {
+        assert(true);
+    }
+
+    function invariant_happy_but_not_view() public {
+        emit log_named_uint("sumShares", sumShares);
         assert(true);
     }
 

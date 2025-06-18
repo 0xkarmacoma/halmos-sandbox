@@ -44,12 +44,42 @@ function pathy_muly(uint256 x) pure returns (bool) {
     return acc != 10605495576585;
 }
 
+function byteAt(uint256 x, uint256 i) pure returns (uint256) {
+    return (x >> (i * 8)) & 0xFF;
+}
+
+function pathy_muly_inputy(uint256 x) pure returns (bool) {
+    uint256 acc = 1;
+
+    // notice, all the values are primes. So the system has to figure
+    // out the primal decomposition of the solution. Hence, there is a unique
+    // solution (given that we cannot roll over due to low numbers)
+    // acc *= (byteAt(x, 8) > 0) ? uint256(3) : uint256(37);
+    // acc *= (byteAt(x, 7) > 0) ? uint256(5) : uint256(41);
+    acc *= (byteAt(x, 6) > 0) ? uint256(7) : uint256(43);
+    acc *= (byteAt(x, 5) > 0) ? byteAt(x, 5) : uint256(11);
+    acc *= (byteAt(x, 4) > 0) ? uint256(13) : uint256(53);
+    // acc *= (x & 0x000000000000FF000000 > 0) ? uint256(17) : (x & 0x000000000000FF000000);
+    acc *= (byteAt(x, 3) > 0) ? uint256(17) : uint256(59);
+    acc *= (byteAt(x, 2) > 0) ? uint256(19) : uint256(61);
+    acc *= (byteAt(x, 1) > 0) ? byteAt(x, 1) : uint256(23);
+    acc *= (byteAt(x, 0) > 0) ? byteAt(x, 0) : uint256(12);
+
+    // 7*47*13*59*19*67*71 = 22807517369
+    return acc != 22807517369;
+}
+
+
 contract SyntheticManyBranch is Test {
-    function test_pAtHExPlOSion_addy(uint256 x) external {
+    function test_pathy_addy(uint256 x) external pure {
         assertTrue(pathy_addy(x));
     }
 
-    function test_pAtHExPlOSion_muly(uint256 x) external {
+    function test_pathy_muly(uint256 x) external pure {
         assertTrue(pathy_muly(x));
+    }
+
+    function test_factorization(uint256 x) external pure {
+        assertTrue(pathy_muly_inputy(x));
     }
 }

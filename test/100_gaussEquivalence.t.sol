@@ -7,6 +7,7 @@ import {console2} from "forge-std/console2.sol";
 import {SymTest} from "halmos-cheatcodes/SymTest.sol";
 
 // from https://runtimeverification.com/blog/formally-verifying-loops-part-1
+/// @custom:halmos --loop 256 --solver-threads 16
 contract Test100 is Test, SymTest {
     function setUp() public {
         console2.log("Test100.setUp");

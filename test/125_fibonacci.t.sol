@@ -34,7 +34,7 @@ contract Test125 {
         assert(slow_fibonacci(2) == 1);
     }
 
-    function test_slow_fibonacci_heavy() external {
+    function test_fibonacci_heavy() external {
         assert(slow_fibonacci(0) == 0);
         assert(slow_fibonacci(1) == 1);
         assert(slow_fibonacci(2) == 1);
