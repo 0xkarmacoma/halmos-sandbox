@@ -2,7 +2,6 @@
 pragma solidity ^0.8.17;
 
 interface IERC20Like {
-
     function balanceOf(address owner_) external view returns (uint256 balance_);
 
     function transferFrom(
@@ -10,7 +9,6 @@ interface IERC20Like {
         address recipient_,
         uint256 amount_
     ) external returns (bool success_);
-
 }
 
 contract Basic4626Deposit {
